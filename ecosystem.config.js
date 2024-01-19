@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      script: "index.js",
+      script: "npm start",
       watch: ".",
     },
     {
@@ -12,9 +12,9 @@ module.exports = {
 
   deploy: {
     production: {
-      key: "key-pair-name.pem", // pem file generated when launching an instance
-      user: "ec2-user", // ec2-user if you use aws linux kernel, ubuntu if you use ubuntu kernel
-      host: "13.212.240.246", // public ip address of the ec2 instance
+      key: "key-pair.pem", // pem file generated when launching an instance
+      user: "ubuntu", // ec2-user if you use aws linux kernel, ubuntu if you use ubuntu kernel
+      host: "54.169.183.129", // public ip address of the ec2 instance
       ref: "main", // specify the branch where your code resides
       repo: "https://github.com/byline2009/node-ai-next.git", //ssh git url of your repo
       path: "/home/ec2-user/ai-node-next/node-ai-next", // mention the path in ec2 instance where your code need to be eg /home/ec2-user
