@@ -12,7 +12,7 @@ module.exports = {
 
   deploy: {
     production: {
-      key: "key-pair.pem", // pem file generated when launching an instance
+      key: "key-pair-1.pem", // pem file generated when launching an instance
       user: "ubuntu", // ec2-user if you use aws linux kernel, ubuntu if you use ubuntu kernel
       host: "54.169.183.129", // public ip address of the ec2 instance
       ref: "main", // specify the branch where your code resides
