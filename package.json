@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev  -p 3000",
+    "dev": "next dev  -p 81",
     "build": "next build",
-    "start": "next start -p 3000",
+    "start": "next start -p 81",
     "lint": "next lint",
     "prepare:data": "tsx -r dotenv/config ./src/scripts/pinecone-prepare-docs.ts"
   },
