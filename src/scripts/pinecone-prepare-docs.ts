@@ -11,10 +11,8 @@ import { env } from "@/lib/config";
   try {
     const pineconeClient = await getPineconeClient();
     const index = pineconeClient.Index(env.PINECONE_INDEX_NAME);
-    await index.delete1({
-      deleteAll: true,
-      namespace: env.PINECONE_NAME_SPACE,
-    });
+    await index._delete({
+      deleteRequest: {deleteAll: true, namespace: env.PINECONE_NAME_SPACE}   });
     console.log("delete all");
     console.log("Preparing chunks from PDF file");
     const docs = await getChunkedDocsFromPDF();
