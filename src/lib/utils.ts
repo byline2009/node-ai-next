@@ -47,7 +47,7 @@ export const initialMessages: Message[] = [
     role: "assistant",
     id: "0",
     content:
-      "Xin chào tôi là trợ lý Mobifone của bạn. Mời bạn hỏi tôi về các gói cước hoặc lỗi Msale của MobiFone nhé",
+      "Xin chào tôi là trợ lý Mobifone của bạn. Mời bạn hỏi tôi về chính sách CSKH của MobiFone nhé",
   },
 ];
 
