@@ -33,6 +33,7 @@ async function initPineconeClient() {
       apiKey: env.PINECONE_API_KEY,
       environment: env.PINECONE_ENVIRONMENT,
     });
+    pineconeClient.projectName = "";
     const indexName = env.PINECONE_INDEX_NAME;
 
     const existingIndexes = await pineconeClient.listIndexes();
