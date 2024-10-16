@@ -1,4 +1,7 @@
-import { Pinecone } from "@pinecone-database/pinecone";
+import {
+  Pinecone,
+  type PineconeConfiguration,
+} from "@pinecone-database/pinecone";
 import { env } from "./config";
 import { delay } from "./utils";
 import { Dispatcher, ProxyAgent } from "undici";
@@ -6,10 +9,7 @@ import { Dispatcher, ProxyAgent } from "undici";
 let pineconeClientInstance: Pinecone | null = null;
 
 const client = new ProxyAgent({
-  uri: "http://10.39.152.30",
-  requestTls: {
-    port: 3128,
-  },
+  uri: "http://10.39.152.30:3128",
 });
 const customFetch = (input: string | URL | Request, init: any) => {
   return fetch(input, {
@@ -17,6 +17,11 @@ const customFetch = (input: string | URL | Request, init: any) => {
     dispatcher: client as any,
     keepalive: true,
   });
+};
+
+const config: PineconeConfiguration = {
+  apiKey: "YOUR_API_KEY",
+  fetchApi: customFetch,
 };
 // Create pineconeIndex if it doesn't exist
 async function createIndex(client: Pinecone, indexName: string) {
@@ -64,6 +69,7 @@ async function initPineconeClient() {
   try {
     const pc = new Pinecone({
       apiKey: "409e625d-dec0-4241-88bc-30efca393b76",
+      fetchApi: customFetch,
     });
     const index = pc.index("index-start");
 
