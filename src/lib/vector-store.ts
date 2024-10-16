@@ -1,10 +1,10 @@
 import { env } from "./config";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
-import { PineconeClient } from "@pinecone-database/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
 
 export async function embedAndStoreDocs(
-  client: PineconeClient,
+  client: Pinecone,
   // @ts-ignore docs type error
   docs: Document<Record<string, any>>[]
 ) {
@@ -26,7 +26,7 @@ export async function embedAndStoreDocs(
 }
 
 // Returns vector-store handle to be used a retrievers on langchains
-export async function getVectorStore(client: PineconeClient) {
+export async function getVectorStore(client: Pinecone) {
   try {
     const embeddings = new OpenAIEmbeddings();
     const index = client.Index(env.PINECONE_INDEX_NAME);
