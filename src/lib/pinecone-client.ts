@@ -15,7 +15,7 @@ async function createIndex(client: PineconeClient, indexName: string) {
       },
     });
     console.log(
-      `Waiting for ${process.env.INDEX_INIT_TIMEOUT} seconds for index initialization to complete...`
+      `Waiting for 240000 seconds for index initialization to complete...`
     );
     await delay(240000);
     console.log("Index created !!");
@@ -30,11 +30,11 @@ async function initPineconeClient() {
   try {
     const pineconeClient = new PineconeClient();
     await pineconeClient.init({
-      apiKey: process.env.PINECONE_API_KEY || "",
-      environment: process.env.PINECONE_ENVIRONMENT || "",
+      apiKey: "409e625d-dec0-4241-88bc-30efca393b76",
+      environment: "gcp-starter",
     });
     // pineconeClient.projectName = "";
-    const indexName = process.env.PINECONE_INDEX_NAME || "";
+    const indexName = "index-start";
 
     const existingIndexes = await pineconeClient.listIndexes();
 
