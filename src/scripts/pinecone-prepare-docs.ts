@@ -10,7 +10,7 @@ import { env } from "@/lib/config";
 (async () => {
   try {
     const pineconeClient = await getPineconeClient();
-    const index = pineconeClient.Index(env.PINECONE_INDEX_NAME);
+    const index = pineconeClient.index("index-start");
     await index.deleteAll();
     console.log("delete all");
     console.log("Preparing chunks from PDF file");
