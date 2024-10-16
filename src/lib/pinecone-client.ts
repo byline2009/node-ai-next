@@ -20,7 +20,7 @@ const customFetch = (input: string | URL | Request, init: any) => {
 };
 
 const config: PineconeConfiguration = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "409e625d-dec0-4241-88bc-30efca393b76",
   fetchApi: customFetch,
 };
 // Create pineconeIndex if it doesn't exist
@@ -67,10 +67,7 @@ async function createIndex(client: Pinecone, indexName: string) {
 async function initPineconeClient() {
   const indexName = "index-start";
   try {
-    const pc = new Pinecone({
-      apiKey: "409e625d-dec0-4241-88bc-30efca393b76",
-      fetchApi: customFetch,
-    });
+    const pc = new Pinecone(config);
     const index = pc.index("index-start");
 
     if (!index) {
