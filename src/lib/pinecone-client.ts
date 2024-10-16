@@ -28,7 +28,9 @@ async function createIndex(client: PineconeClient, indexName: string) {
 // Initialize index and ready to be accessed.
 async function initPineconeClient() {
   try {
+    console.log("check env", process.env.PINECONE_ENVIRONMENT);
     const pineconeClient = new PineconeClient();
+    console.log("check init");
     await pineconeClient.init({
       apiKey: "409e625d-dec0-4241-88bc-30efca393b76",
       environment: "gcp-starter",
