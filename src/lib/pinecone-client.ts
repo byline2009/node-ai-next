@@ -33,7 +33,7 @@ async function initPineconeClient() {
       apiKey: "409e625d-dec0-4241-88bc-30efca393b76",
       environment: "gcp-starter",
     });
-    // pineconeClient.projectName = "";
+    pineconeClient.projectName = "default";
     const indexName = "index-start";
 
     const existingIndexes = await pineconeClient.listIndexes();
