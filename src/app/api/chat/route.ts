@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { callChain } from "@/lib/langchain";
 import { Message } from "ai";
+import {retrieveRelevantChunks,generateAnswer} from "./../../../lib/generate-answer";
 
 const formatMessage = (message: Message) => {
   return `${message.role === "user" ? "Human" : "Assistant"}: ${
@@ -15,7 +16,7 @@ export async function POST(req: NextRequest) {
   const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
   const question = messages[messages.length - 1].content;
 
-  console.log("Chat history ", formattedPreviousMessages.join("\n"));
+  console.log("question ", question);
 
   if (!question) {
     return NextResponse.json("Error: No question in the request", {
@@ -24,12 +25,16 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const streamingTextResponse = callChain({
-      question,
-      chatHistory: formattedPreviousMessages.join("\n"),
-    });
+    // const streamingTextResponse = callChain({
+    //   question,
+    //   chatHistory: formattedPreviousMessages.join("\n"),
+    // });
 
-    return streamingTextResponse;
+    // return streamingTextResponse;
+    const relevantChunksMatchingQuery = await retrieveRelevantChunks(question);
+      console.log("relevantChunksMatchingQuery",relevantChunksMatchingQuery);
+      const answer = await generateAnswer(question, relevantChunksMatchingQuery);
+      return answer;
   } catch (error) {
     console.error("Internal server error ", error);
     return NextResponse.json("Error: Something went wrong. Try again!", {

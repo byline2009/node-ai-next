@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "prepare:data": "tsx -r dotenv/config ./src/scripts/pinecone-prepare-docs.ts"
+    "prepare:data": "tsx -r dotenv/config ./src/scripts/pinecone-prepare-docs.js"
   },
   "dependencies": {
     "@pinecone-database/pinecone": "3.0.3",
@@ -27,10 +27,10 @@
     "clsx": "^2.0.0",
     "dotenv": "^16.3.1",
     "eslint": "8.46.0",
-    "eslint-config-next": "13.4.13",
+    "eslint-config-next": "13.5.1",
     "langchain": "^0.0.126",
     "lucide-react": "^0.265.0",
-    "next": "13.4.12",
+    "next": "14.2.9",
     "next-themes": "^0.2.1",
     "pdf-parse": "^1.1.1",
     "postcss": "8.4.27",
@@ -43,7 +43,9 @@
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6",
     "undici": "^6.20.1",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "@langchain/openai": "^0.2.7"
+
   },
   "devDependencies": {
     "@types/pdf-parse": "^1.1.1",
