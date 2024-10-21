@@ -1,4 +1,4 @@
-import { ChatOpenAI } from "@langchain/openai";
+import { ChatOpenA } from "@langchain/openai";
 import { env } from "./config";
 import { embedDocs } from "./vector-store";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
