@@ -1,6 +1,6 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { env } from "./config";
-import {embedDocs}  from "./vector-store"
+import { embedDocs } from "./vector-store";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { getPineconeClient } from "./pinecone-client";
@@ -8,10 +8,13 @@ import { getPineconeClient } from "./pinecone-client";
 // https://js.langchain.com/v0.2/docs/integrations/chat/openai/
 // https://js.langchain.com/v0.2/docs/integrations/chat/azure/
 export async function generateAnswer(query, retrievedChunks) {
-  const llm = new ChatOpenAI({
-    model: "gpt-4o-mini",
-    // Include any other parameters required, e.g., temperature, max_tokens, etc.
-  });
+  const llm = new ChatOpenAI(
+    {
+      model: "gpt-4o-mini",
+      // Include any other parameters required, e.g., temperature, max_tokens, etc.
+    },
+    { basePath: "http://10.39.152.30:3128" }
+  );
 
   // Join retrieved chunks into a single context string
   const context = retrievedChunks.join(" ");
@@ -34,7 +37,10 @@ export async function generateAnswer(query, retrievedChunks) {
   return answer;
 }
 
-export async function retrieveRelevantChunks(query, namespace = env.PINECONE_NAME_SPACE) {
+export async function retrieveRelevantChunks(
+  query,
+  namespace = env.PINECONE_NAME_SPACE
+) {
   const embeddingDataArr = await embedTexts([query]);
   const pc = await getPineconeClient();
   const index = pc.index(env.PINECONE_INDEX_NAME);
@@ -44,7 +50,7 @@ export async function retrieveRelevantChunks(query, namespace = env.PINECONE_NAM
     includeValues: true,
     includeMetadata: true,
   });
-  console.log("results",results);
+  console.log("results", results);
   return results.matches.map((match) => match.metadata.chunk);
 }
 async function embedTexts(textChunks) {
