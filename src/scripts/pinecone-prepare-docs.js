@@ -2,6 +2,7 @@ import { getChunkedDocsFromPDF } from "@/lib/pdf-loader";
 import { embedDocs, storeEmbeddings } from "@/lib/vector-store";
 import { getPineconeClient } from "@/lib/pinecone-client";
 import { env } from "@/lib/config";
+import { ChatOpenAI } from "@langchain/openai";
 
 // This operation might fail because indexes likely need
 // more time to init, so give some 5 mins after index
