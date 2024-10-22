@@ -17,19 +17,24 @@ export function Chat() {
 
   useEffect(() => {
     console.log("messages", messages);
-
+    if(messages.length >1 && isLoading){
+      callAPIChat()
+    }
     setTimeout(() => scrollToBottom(containerRef), 100);
-  }, [messages]);
+  }, [messages, isLoading]);
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessages([...messages, { role: "human", content: input }]);
-    await callAPIChat();
+    setIsLoading(true)
   };
+
   const callAPIChat = async () => {
     setIsLoading(true);
+    const mes = input;
+    setInput("");
     const res = await fetch("api/chat", {
       method: "POST",
       headers: {
@@ -39,12 +44,15 @@ export function Chat() {
 
       //make sure to serialize your JSON body
       body: JSON.stringify({
-        message: input,
+        message: mes,
       }),
     });
     const text = await res.json();
-    console.log("text", text);
-    setMessages([...messages, { role: "ai", content: text.message }]);
+    if(text){
+      setIsLoading(false);
+      setMessages([...messages, { role: "assistant", content: text.message }]);
+    }
+   
   };
 
   return (
