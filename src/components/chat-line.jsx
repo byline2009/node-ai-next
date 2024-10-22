@@ -17,7 +17,7 @@ import { Message } from "ai/react";
 import ReactMarkdown from "react-markdown";
 import { formattedText } from "@/lib/utils";
 
-const convertNewLines = (text: string) =>
+const convertNewLines = (text) =>
   text.split("\n").map((line, i) => (
     <span key={i}>
       {line}
@@ -25,19 +25,11 @@ const convertNewLines = (text: string) =>
     </span>
   ));
 
-interface ChatLineProps extends Partial<Message> {
-  sources: string[];
-}
-
-export function ChatLine({
-  role = "assistant",
-  content,
-  sources,
-}: ChatLineProps) {
+export function ChatLine({ role, content }) {
   if (!content) {
     return null;
   }
-  const formattedMessage = convertNewLines(content);
+  const formattedMessage = content;
 
   return (
     <div>
@@ -54,10 +46,10 @@ export function ChatLine({
           </CardTitle>
         </CardHeader>
         <CardContent className="text-sm">
-          <Balancer>{formattedMessage}</Balancer>
+          <Balancer>{content}</Balancer>
         </CardContent>
         <CardFooter>
-          <CardDescription className="w-full">
+          {/* <CardDescription className="w-full">
             {sources && sources.length ? (
               <Accordion type="single" collapsible className="w-full">
                 {sources.map((source, index) => (
@@ -65,7 +57,7 @@ export function ChatLine({
                     <AccordionTrigger>{`Source ${index + 1}`}</AccordionTrigger>
                     <AccordionContent>
                       <ReactMarkdown linkTarget="_blank">
-                        {formattedText(source)}
+                        {source}
                       </ReactMarkdown>
                     </AccordionContent>
                   </AccordionItem>
@@ -74,7 +66,7 @@ export function ChatLine({
             ) : (
               <></>
             )}
-          </CardDescription>
+          </CardDescription> */}
         </CardFooter>
       </Card>
     </div>

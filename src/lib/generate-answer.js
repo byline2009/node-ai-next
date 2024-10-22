@@ -1,4 +1,4 @@
-import { ChatOpenA } from "@langchain/openai";
+import { ChatOpenAI } from "@langchain/openai";
 import { env } from "./config";
 import { embedDocs } from "./vector-store";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
@@ -12,8 +12,8 @@ export async function generateAnswer(query, retrievedChunks) {
     {
       model: "gpt-4o-mini",
       // Include any other parameters required, e.g., temperature, max_tokens, etc.
-    },
-    { basePath: "http://10.39.152.30:3128" }
+    }
+    // { basePath: "http://10.39.152.30:3128" }
   );
 
   // Join retrieved chunks into a single context string
@@ -41,7 +41,7 @@ export async function retrieveRelevantChunks(
   query,
   namespace = env.PINECONE_NAME_SPACE
 ) {
-  const embeddingDataArr = await embedTexts([query]);
+  const embeddingDataArr = await embedDocs([query]);
   const pc = await getPineconeClient();
   const index = pc.index(env.PINECONE_INDEX_NAME);
   const results = await index.namespace(namespace).query({
@@ -50,26 +50,5 @@ export async function retrieveRelevantChunks(
     includeValues: true,
     includeMetadata: true,
   });
-  console.log("results", results);
   return results.matches.map((match) => match.metadata.chunk);
-}
-async function embedTexts(textChunks) {
-  const embedder = new OpenAIEmbeddings({
-    apiKey: process.env.OPENAI_API_KEY,
-    batchSize: 512, // Default value if omitted is 512. Max is 2048
-    model: "text-embedding-3-large",
-  });
-  const embeddingsDataArr = []; //[{embedding: [], chunk: '}]
-
-  for (const chunk of textChunks) {
-    // console.log("Embedding chunk", chunk);
-    const embedding = await embedder.embedQuery(chunk);
-    embeddingsDataArr.push({
-      embedding,
-      chunk,
-    });
-    // console.log('Embedding value', embedding)
-  }
-
-  return embeddingsDataArr;
 }

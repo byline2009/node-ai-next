@@ -1,5 +1,4 @@
 import { ChatGPTMessage } from "@/types";
-import { Message } from "ai";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -42,10 +41,9 @@ export function formattedText(inputText: string) {
 }
 
 // Default UI Message
-export const initialMessages: Message[] = [
+export const initialMessages = [
   {
     role: "assistant",
-    id: "0",
     content:
       "Xin chào tôi là trợ lý Mobifone của bạn. Mời bạn hỏi tôi về chính sách CSKH của MobiFone nhé",
   },
