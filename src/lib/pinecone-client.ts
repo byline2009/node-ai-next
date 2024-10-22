@@ -14,7 +14,7 @@ const client = new ProxyAgent({
 const customFetch = (input: string | URL | Request, init: any) => {
   return fetch(input, {
     ...init,
-    // dispatcher: client as any,
+    dispatcher: client as any,
     keepalive: true,
   });
 };

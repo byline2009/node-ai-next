@@ -13,7 +13,7 @@ export async function generateAnswer(query, retrievedChunks) {
       model: "gpt-4o-mini",
       // Include any other parameters required, e.g., temperature, max_tokens, etc.
     }
-    // { basePath: "http://10.39.152.30:3128" }
+     { basePath: "http://10.39.152.30:3128" }
   );
 
   // Join retrieved chunks into a single context string
