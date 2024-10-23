@@ -26,7 +26,7 @@ import { Dispatcher, ProxyAgent } from "undici";
         openAIApiKey: env.OPENAI_API_KEY,
         streamUsage: false,
         configuration: {
-          baseURL: "http://10.39.152.30:3128",
+          baseURL: "https://proxy.com",
         },
       }
       // { basePath: "http://10.39.152.30:3128" }
