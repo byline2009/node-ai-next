@@ -5,7 +5,6 @@ import { env } from "@/lib/config";
 import { ChatOpenAI } from "@langchain/openai";
 import { Dispatcher, ProxyAgent } from "undici";
 import { HttpsProxyAgent } from "https-proxy-agent";
-
 const agent = new HttpsProxyAgent("http://10.39.152.30:3128");
 
 // This operation might fail because indexes likely need
@@ -28,7 +27,6 @@ const agent = new HttpsProxyAgent("http://10.39.152.30:3128");
         temperature: 0,
         openAIApiKey: env.OPENAI_API_KEY,
       },
-      // { basePath: "http://10.39.152.30:3128" }
       { httpAgent: agent }
     );
     const systemMessage = `You are an AI that answers questions strictly based on the provided context.

@@ -4,16 +4,16 @@ import { embedDocs } from "./vector-store";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { getPineconeClient } from "./pinecone-client";
-
+import { HttpsProxyAgent } from "https-proxy-agent";
+const agent = new HttpsProxyAgent("http://10.39.152.30:3128");
 // https://js.langchain.com/v0.2/docs/integrations/chat/openai/
 // https://js.langchain.com/v0.2/docs/integrations/chat/azure/
 export async function generateAnswer(query, retrievedChunks) {
   const llm = new ChatOpenAI(
     {
       model: "gpt-4o-mini",
-      // Include any other parameters required, e.g., temperature, max_tokens, etc.
     },
-    { basePath: "http://10.39.152.30:3128" }
+    { httpAgent: agent }
   );
 
   // Join retrieved chunks into a single context string
