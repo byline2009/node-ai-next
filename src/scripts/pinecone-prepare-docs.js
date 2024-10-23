@@ -4,6 +4,9 @@ import { getPineconeClient } from "@/lib/pinecone-client";
 import { env } from "@/lib/config";
 import { ChatOpenAI } from "@langchain/openai";
 import { Dispatcher, ProxyAgent } from "undici";
+import { HttpsProxyAgent } from "https-proxy-agent";
+
+const agent = new HttpsProxyAgent("http://10.39.152.30:3128");
 
 // This operation might fail because indexes likely need
 // more time to init, so give some 5 mins after index
@@ -24,13 +27,9 @@ import { Dispatcher, ProxyAgent } from "undici";
       {
         temperature: 0,
         openAIApiKey: env.OPENAI_API_KEY,
-        streamUsage: false,
-        configuration: {
-          baseURL: "https://proxy.com",
-        },
-      }
+      },
       // { basePath: "http://10.39.152.30:3128" }
-      // { httpAgent: new ProxyAgent({ uri: "http://10.39.152.30:3128" }) }
+      { httpAgent: agent }
     );
     const systemMessage = `You are an AI that answers questions strictly based on the provided context.
     If the context doesn't contain enough information, respond with "I do not have enough info to answer this question."`;
